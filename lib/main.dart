@@ -7,6 +7,10 @@ void main() {
 class PerguntaApp extends StatelessWidget {
   const PerguntaApp({super.key});
 
+  void responder() {
+    print('Pergunta respondida pelo metodo!');
+  }
+
   @override
   Widget build(BuildContext context) {
     final perguntas = [
@@ -22,17 +26,25 @@ class PerguntaApp extends StatelessWidget {
         body: Column(
           children: [
             Text(perguntas[0]),
-            const ElevatedButton(
-              onPressed: null,
-              child: Text('Resposta 1'),
+            // isso é uma class um widiget(component) que eu chamo o construtor passando parametros para ela
+            ElevatedButton(
+              onPressed:
+                  responder, // exite um diferenca entre chamar uma função ou passar ela como passar metodo responder() como parametro tira o ()
+              child: const Text('Resposta 1'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                print('Resposta 2 função!');
+              },
+              child: const Text('Resposta 2'),
+            ),
+            ElevatedButton(
+              onPressed: () => print('Resposta 3 pela arrow'),
+              child: const Text('Resposta 3'),
             ),
             const ElevatedButton(
               onPressed: null,
-              child: Text('Resposta 2'),
-            ),
-            const ElevatedButton(
-              onPressed: null,
-              child: Text('Resposta 3'),
+              child: Text('Resposta 4'),
             ),
           ],
         ),
