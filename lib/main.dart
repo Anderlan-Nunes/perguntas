@@ -38,13 +38,15 @@ class PerguntaAppState extends State<PerguntaApp> {
               child: const Text('Resposta 1'),
             ),
             ElevatedButton(
-              onPressed: () {
-                print('Resposta 2 função!');
-              },
+              onPressed: responder,
+              // () {
+              //   print('Resposta 2 função!');
+              // },
               child: const Text('Resposta 2'),
             ),
             ElevatedButton(
-              onPressed: () => print('Resposta 3 pela arrow'),
+              onPressed: responder,
+              // () => print('Resposta 3 pela arrow'),
               child: const Text('Resposta 3'),
             ),
             const ElevatedButton(
