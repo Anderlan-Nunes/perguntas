@@ -4,11 +4,14 @@ void main() {
   runApp(const PerguntaApp());
 }
 
-class PerguntaApp extends StatelessWidget {
-  const PerguntaApp({super.key});
+class PerguntaAppState extends State<PerguntaApp> {
+  var perguntaSelecionada = 0;
 
   void responder() {
-    print('Pergunta respondida pelo metodo!');
+    setState(() {
+      perguntaSelecionada++;
+    });
+    print(perguntaSelecionada);
   }
 
   @override
@@ -17,15 +20,17 @@ class PerguntaApp extends StatelessWidget {
       'Qual é a sua cor favorita?',
       'Qual é o seu animal favorito?',
     ];
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        // container
         appBar: AppBar(
           title: const Text('Perguntas'),
         ),
         body: Column(
           children: [
-            Text(perguntas[0]),
+            Text(perguntas[perguntaSelecionada]),
             // isso é uma class um widiget(component) que eu chamo o construtor passando parametros para ela
             ElevatedButton(
               onPressed:
@@ -44,7 +49,7 @@ class PerguntaApp extends StatelessWidget {
             ),
             const ElevatedButton(
               onPressed: null,
-              child: Text('Resposta 4'),
+              child: Text('Resposta 4 desativado'),
             ),
           ],
         ),
@@ -53,6 +58,14 @@ class PerguntaApp extends StatelessWidget {
   }
 }
 
+class PerguntaApp extends StatefulWidget {
+  const PerguntaApp({super.key});
+
+  @override
+  PerguntaAppState createState() {
+    return PerguntaAppState();
+  }
+}
 /**
  * Sobre o "const", o Flutter pede para que você marque como "const" tudo que não é variável no seu código, desde variáveis até widgets inteiros. Basicamente é isso, como o widget da linha 4 não recebe nenhum parâmetro mutável, ele é constante, logo, o código pede a marcação "const" no início.
 
