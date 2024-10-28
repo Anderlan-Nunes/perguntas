@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_perguntas/questao.dart';
 
 void main() {
   runApp(const PerguntaApp());
@@ -30,19 +31,19 @@ class PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Column(
           children: [
-            Text(perguntas[perguntaSelecionada]),
+            Questao(perguntas[perguntaSelecionada]),
             // isso é uma class um widiget(component) que eu chamo o construtor passando parametros para ela
             ElevatedButton(
               onPressed:
                   responder, // exite um diferenca entre chamar uma função ou passar ela como passar metodo responder() como parametro tira o ()
-              child: const Text('Resposta 1'),
+              child: const Questao('Resposta 1'),
             ),
             ElevatedButton(
               onPressed: responder,
               // () {
               //   print('Resposta 2 função!');
               // },
-              child: const Text('Resposta 2'),
+              child: const Questao('Resposta 2'),
             ),
             ElevatedButton(
               onPressed: responder,
@@ -51,7 +52,7 @@ class PerguntaAppState extends State<PerguntaApp> {
             ),
             const ElevatedButton(
               onPressed: null,
-              child: Text('Resposta 4 desativado'),
+              child: Questao('Resposta 4 desativado'),
             ),
           ],
         ),
