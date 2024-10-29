@@ -36,14 +36,14 @@ class PerguntaAppState extends State<PerguntaApp> {
             ElevatedButton(
               onPressed:
                   responder, // exite um diferenca entre chamar uma função ou passar ela como passar metodo responder() como parametro tira o ()
-              child: const Questao('Resposta 1'),
+              child: const Text('Resposta 1'),
             ),
             ElevatedButton(
               onPressed: responder,
               // () {
               //   print('Resposta 2 função!');
               // },
-              child: const Questao('Resposta 2'),
+              child: const Text('Resposta 2'),
             ),
             ElevatedButton(
               onPressed: responder,
@@ -52,7 +52,7 @@ class PerguntaAppState extends State<PerguntaApp> {
             ),
             const ElevatedButton(
               onPressed: null,
-              child: Questao('Resposta 4 desativado'),
+              child: Text('Resposta 4 desativado'),
             ),
           ],
         ),
