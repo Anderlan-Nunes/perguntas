@@ -17,10 +17,27 @@ class PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    final perguntas = [
-      'Qual é a sua cor favorita?',
-      'Qual é o seu animal favorito?',
+    final List<Map<String, Object>> perguntas = [
+      {
+        'texto': 'Qual é a sua cor favorita?',
+        'respostas': ['Preto', 'Vermelho', 'Prata', 'Branco']
+      },
+      {
+        'texto': 'Qual é o seu animal favorito?',
+        'respostas': ['cao', 'lobo', 'cat']
+      },
+      {
+        'texto': 'Qual é o sua comida?',
+        'respostas': ['pao', 'bolo', 'chocolat']
+      }
     ];
+
+    List<Widget> respostas = [];
+
+    for (String textoResp
+        in perguntas[perguntaSelecionada]['respostas'] as List) {
+      respostas.add(Respostas(textoResp, responder));
+    }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -31,11 +48,8 @@ class PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Column(
           children: [
-            Questao(perguntas[perguntaSelecionada]),
-            // isso é uma class um widiget(component) que eu chamo o construtor passando parametros para ela
-            Respostas('Resposta 1', responder),
-            Respostas('Resposta 2', responder),
-            Respostas('Resposta 3', responder),
+            Questao(perguntas[perguntaSelecionada]['texto'].toString()),
+            ...respostas,
           ],
         ),
       ),
