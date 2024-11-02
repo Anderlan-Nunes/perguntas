@@ -9,32 +9,37 @@ void main() {
 class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
 
+  final perguntas = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Prata', 'Branco']
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['cao', 'lobo', 'cat']
+    },
+    {
+      'texto': 'Qual é o sua comida?',
+      'respostas': ['pao', 'bolo', 'chocolat']
+    }
+  ];
   void responder() {
-    setState(() {
-      perguntaSelecionada++;
-    });
+    if (temPerguntaSelecionada) {
+      setState(() {
+        perguntaSelecionada++;
+      });
+    }
+  }
+
+  bool get temPerguntaSelecionada {
+    return perguntaSelecionada < perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> perguntas = [
-      {
-        'texto': 'Qual é a sua cor favorita?',
-        'respostas': ['Preto', 'Vermelho', 'Prata', 'Branco']
-      },
-      {
-        'texto': 'Qual é o seu animal favorito?',
-        'respostas': ['cao', 'lobo', 'cat']
-      },
-      {
-        'texto': 'Qual é o sua comida?',
-        'respostas': ['pao', 'bolo', 'chocolat']
-      }
-    ];
-
-    List<String> respostas =
-        perguntas[perguntaSelecionada]['respostas'] as List<String>;
-
+    List<String> respostas = temPerguntaSelecionada
+        ? perguntas[perguntaSelecionada]['respostas'] as List<String>
+        : [];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -42,12 +47,14 @@ class PerguntaAppState extends State<PerguntaApp> {
         appBar: AppBar(
           title: const Text('Perguntas'),
         ),
-        body: Column(
-          children: [
-            Questao(perguntas[perguntaSelecionada]['texto'].toString()),
-            ...respostas.map((t) => Respostas(t, responder)),
-          ],
-        ),
+        body: temPerguntaSelecionada
+            ? Column(
+                children: [
+                  Questao(perguntas[perguntaSelecionada]['texto'].toString()),
+                  ...respostas.map((t) => Respostas(t, responder)),
+                ],
+              )
+            : Container(),
       ),
     );
   }
