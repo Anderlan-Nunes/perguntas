@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_perguntas/questao.dart';
-import 'package:projeto_perguntas/respostas.dart';
+import 'package:projeto_perguntas/resultado.dart';
 
 void main() {
   runApp(const PerguntaApp());
@@ -12,15 +11,15 @@ class PerguntaAppState extends State<PerguntaApp> {
   final perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
-      'respostas': ['Preto', 'Vermelho', 'Prata', 'Branco']
+      'resposta': ['Preto', 'Vermelho', 'Prata', 'Branco']
     },
     {
       'texto': 'Qual é o seu animal favorito?',
-      'respostas': ['cao', 'lobo', 'cat']
+      'resposta': ['cao', 'lobo', 'cat']
     },
     {
       'texto': 'Qual é o sua comida?',
-      'respostas': ['pao', 'bolo', 'chocolat']
+      'resposta': ['pao', 'bolo', 'chocolat']
     }
   ];
   void responder() {
@@ -38,24 +37,16 @@ class PerguntaAppState extends State<PerguntaApp> {
   @override
   Widget build(BuildContext context) {
     List<String> respostas = temPerguntaSelecionada
-        ? perguntas[perguntaSelecionada]['respostas'] as List<String>
+        ? perguntas[perguntaSelecionada]['resposta'] as List<String>
         : [];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // container
-        appBar: AppBar(
-          title: const Text('Perguntas'),
-        ),
-        body: temPerguntaSelecionada
-            ? Column(
-                children: [
-                  Questao(perguntas[perguntaSelecionada]['texto'].toString()),
-                  ...respostas.map((t) => Respostas(t, responder)),
-                ],
-              )
-            : Container(),
-      ),
+          // container
+          appBar: AppBar(
+            title: const Text('Perguntas'),
+          ),
+          body: temPerguntaSelecionada ? Container() : const Resultado()),
     );
   }
 }
