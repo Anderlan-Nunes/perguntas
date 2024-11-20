@@ -1,52 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_perguntas/resultado.dart';
+import './questao.dart';
+import './resposta.dart';
 
-void main() {
-  runApp(const PerguntaApp());
-}
+void main() => runApp(const PerguntaApp());
 
-class PerguntaAppState extends State<PerguntaApp> {
-  var perguntaSelecionada = 0;
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
 
-  final perguntas = const [
-    {
-      'texto': 'Qual é a sua cor favorita?',
-      'resposta': ['Preto', 'Vermelho', 'Prata', 'Branco']
-    },
-    {
-      'texto': 'Qual é o seu animal favorito?',
-      'resposta': ['cao', 'lobo', 'cat']
-    },
-    {
-      'texto': 'Qual é o sua comida?',
-      'resposta': ['pao', 'bolo', 'chocolat']
-    }
-  ];
-  void responder() {
-    if (temPerguntaSelecionada) {
-      setState(() {
-        perguntaSelecionada++;
-      });
-    }
-  }
-
-  bool get temPerguntaSelecionada {
-    return perguntaSelecionada < perguntas.length;
+  void _responder() {
+    setState(() {
+      _perguntaSelecionada++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> respostas = temPerguntaSelecionada
-        ? perguntas[perguntaSelecionada]['resposta'] as List<String>
-        : [];
+    final perguntas = [
+      {
+        'texto': 'Qual é a sua cor favorita?',
+        'resposta': ['Preto', 'Vermelho', 'Prata', 'Branco']
+      },
+      {
+        'texto': 'Qual é o seu animal favorito?',
+        'resposta': ['cao', 'lobo', 'cat']
+      },
+      {
+        'texto': 'Qual é o sua comida?',
+        'resposta': ['pao', 'bolo', 'chocolat']
+      }
+    ];
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          // container
-          appBar: AppBar(
-            title: const Text('Perguntas'),
-          ),
-          body: temPerguntaSelecionada ? Container() : const Resultado()),
+        appBar: AppBar(
+          title: const Text('Perguntas'),
+        ),
+        body: Column(
+          children: [
+            Questao(perguntas[_perguntaSelecionada]['texto'] as String),
+            Resposta('Resposta 1', _responder),
+            Resposta('Resposta 2', _responder),
+            Resposta('Resposta 3', _responder),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -55,8 +53,8 @@ class PerguntaApp extends StatefulWidget {
   const PerguntaApp({super.key});
 
   @override
-  PerguntaAppState createState() {
-    return PerguntaAppState();
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
 /**
