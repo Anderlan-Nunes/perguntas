@@ -7,20 +7,20 @@ void main() => runApp(const PerguntaApp());
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
 
-      final _perguntas = const [
-      {
-        'texto': 'Qual é a sua cor favorita?',
-        'respostas': ['Preto', 'Vermelho', 'Prata', 'Branco']
-      },
-      {
-        'texto': 'Qual é o seu animal favorito?',
-        'respostas': ['cao', 'lobo', 'cat']
-      },
-      {
-        'texto': 'Qual é o sua comida?',
-        'respostas': ['pao', 'bolo', 'chocolat']
-      }
-    ];
+  final _perguntas = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Prata', 'Branco']
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['cao', 'lobo', 'cat']
+    },
+    {
+      'texto': 'Qual é o sua comida?',
+      'respostas': ['pao', 'bolo', 'chocolat']
+    }
+  ];
 
   void _responder() {
     if (temPerguntaSelecionada) {
@@ -30,32 +30,39 @@ class _PerguntaAppState extends State<PerguntaApp> {
     }
   }
 
-    bool get temPerguntaSelecionada {
+  bool get temPerguntaSelecionada {
     return _perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
+    List<String> respostas = temPerguntaSelecionada
+        ? _perguntas[_perguntaSelecionada]['respostas'] as List<String>
+        : [];
 
-
-    List<String> respostas = temPerguntaSelecionada ? _perguntas[_perguntaSelecionada]['respostas']as List<String> : [];
-    
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Perguntas'),
-        ),
-        body: temPerguntaSelecionada
-            ? Column(
-                children: [
-                  Questao(_perguntas[_perguntaSelecionada]['texto'] as String),
-                  ...respostas.map((t) => Resposta(t, _responder)),
-                ],
-              )
-            : const Text('para-bens'),
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Perguntas'),
+          ),
+          body: temPerguntaSelecionada
+              ? Column(
+                  children: [
+                    Questao(
+                        _perguntas[_perguntaSelecionada]['texto'] as String),
+                    ...respostas.map((t) => Resposta(t, _responder)),
+                  ],
+                )
+              : const Center(
+                  child: Text(
+                    'Parabens!',
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                ),
+        ));
   }
 }
 
