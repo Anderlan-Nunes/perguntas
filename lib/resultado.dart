@@ -7,7 +7,7 @@ class Resultado extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Parabens!!!',
+        'Parabens!!!2',
         style: TextStyle(
           fontSize: 28,
         ),
