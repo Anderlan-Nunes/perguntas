@@ -5,7 +5,7 @@ import 'resposta.dart';
 class Questionario extends StatelessWidget {
   final List<Map<String, Object>> perguntas;
   final int perguntaSelecionada;
-  final void Function() quandoResponder;
+  final void Function(int) quandoResponder;
 
   const Questionario({
     required this.perguntas,
@@ -26,7 +26,12 @@ class Questionario extends StatelessWidget {
     return Column(
       children: [
         Questao(perguntas[perguntaSelecionada]['texto'] as String),
-        ...respostas.map((resp) => Resposta(resp['texto'] as String, quandoResponder)),
+        ...respostas.map((resp) {
+          return Resposta(
+            resp['texto'] as String,
+             () => quandoResponder(resp['pontuacao'] as int),
+          );// aki eu sei qnto vale a resposta do usuario
+        })
       ],
     );
   }
